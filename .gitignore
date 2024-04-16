@@ -1,0 +1,6 @@
+venv
+.env
+.cache
+access_tokens.json
+aux.json
+commands.bash
