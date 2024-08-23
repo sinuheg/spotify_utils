@@ -4,20 +4,9 @@ from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 
 '''
 Make sure to add the following env variables
-export SPOTIPY_CLIENT_ID=''
-export SPOTIPY_CLIENT_SECRET=''
-export SPOTIPY_MIXER_PLAYLIST_ID=''
-'''
-
-# auth_manager = SpotifyClientCredentials()
-# sp = spotipy.Spotify(auth_manager=auth_manager)
-
-'''
-Make sure to add the following env variables
-export SPOTIPY_CLIENT_ID=''
-export SPOTIPY_CLIENT_SECRET=''
-export SPOTIPY_REDIRECT_URI=''
-export SPOTIPY_MIXER_PLAYLIST_ID=''
+export SPOTIFY_CLIENT_ID=''
+export SPOTIFY_CLIENT_SECRET=''
+export SPOTIFY_MIXER_PLAYLIST_ID=''
 '''
 scope = "user-library-read,playlist-read-private,playlist-modify-private"
 
@@ -25,8 +14,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
 def get_playlist_by_id(playlist_id):
     playlist = sp.playlist(playlist_id)
-    print()
-    print(playlist['name'],'owner', playlist['owner']['display_name'])
+    print(playlist['name'],'owner', playlist['owner']['display_name'], len(playlist['tracks']['items']))
     
     return playlist
 
@@ -37,7 +25,6 @@ def get_playlist_by_search(query):
     playlist_id = items[0]['id']
 
     playlist = sp.playlist(playlist_id)
-    print()
     print(playlist['name'],'owner', playlist['owner']['display_name'], len(playlist['tracks']['items']))
     
     return playlist
@@ -111,8 +98,8 @@ def playlist_add_items_no_limit(target_playlist_id, items_to_add):
 
 
 discover_playlist = get_playlist_by_search('Discover+Weekly')
-release_playlist = get_playlist_by_search('Release+Radar')
-mixer_playlist = get_playlist_by_id(os.getenv('SPOTIPY_MIXER_PLAYLIST_ID')) # Mixer Playlist
+release_playlist = get_playlist_by_id(os.getenv('SPOTIFY_RELEASE_RADAR_PLAYLIST_ID')) # Release Radar playlist
+mixer_playlist = get_playlist_by_id(os.getenv('SPOTIFY_MIXER_PLAYLIST_ID')) # Mixer Playlist
 remove_all_playlist_items(mixer_playlist)
 lkd_songs = get_liked_songs_extended_limit(70)
 mix_playlists_and_add([discover_playlist,release_playlist], lkd_songs, mixer_playlist)
