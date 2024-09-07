@@ -4,9 +4,11 @@ from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 
 '''
 Make sure to add the following env variables
-export SPOTIFY_CLIENT_ID=''
-export SPOTIFY_CLIENT_SECRET=''
-export SPOTIFY_MIXER_PLAYLIST_ID=''
+export SPOTIPY_CLIENT_ID='asdf'
+export SPOTIPY_CLIENT_SECRET='asdf'
+export SPOTIPY_REDIRECT_URI='https://asdf.com'
+export SPOTIPY_MIXER_PLAYLIST_ID='asdf'
+export SPOTIPY_RELEASE_RADAR_PLAYLIST_ID='asdf'
 '''
 scope = "user-library-read,playlist-read-private,playlist-modify-private"
 
@@ -98,8 +100,8 @@ def playlist_add_items_no_limit(target_playlist_id, items_to_add):
 
 
 discover_playlist = get_playlist_by_search('Discover+Weekly')
-release_playlist = get_playlist_by_id(os.getenv('SPOTIFY_RELEASE_RADAR_PLAYLIST_ID')) # Release Radar playlist
-mixer_playlist = get_playlist_by_id(os.getenv('SPOTIFY_MIXER_PLAYLIST_ID')) # Mixer Playlist
+release_playlist = get_playlist_by_id(os.getenv('SPOTIPY_RELEASE_RADAR_PLAYLIST_ID')) # Release Radar playlist
+mixer_playlist = get_playlist_by_id(os.getenv('SPOTIPY_MIXER_PLAYLIST_ID')) # Mixer Playlist
 remove_all_playlist_items(mixer_playlist)
 lkd_songs = get_liked_songs_extended_limit(70)
 mix_playlists_and_add([discover_playlist,release_playlist], lkd_songs, mixer_playlist)
